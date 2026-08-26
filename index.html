@@ -2,23 +2,120 @@
 <html>
 <head>
     <title>Game Zone</title>
+
     <style>
-        body{background:#080014;color:white;font-family:Arial;text-align:center}
-        header{background:#120020;padding:20px}
-        h1{color:#c000ff}
-        nav a{color:white;margin:15px;text-decoration:none}
-        .inicio{padding:50px;background:#18002b}
-        button{background:#c000ff;color:white;padding:12px;border:0}
-        .juegos{display:flex;justify-content:center;gap:15px}
-        .juego{background:#190026;padding:20px;width:150px}
-        .juego h2{color:#d000ff}
-        .noticias{background:#120020;padding:25px;margin-top:20px}
-        footer{padding:20px;color:#aaa}
+        body {
+            background: #080014;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            margin: 0;
+        }
+
+        header {
+            background: #120020;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #c000ff;
+        }
+
+        nav a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+        }
+
+        .inicio {
+            padding: 50px;
+            background: #18002b;
+        }
+
+        button {
+            background: #b30587;
+            color: white;
+            padding: 12px;
+            border: 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff0000;
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        .juegos {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .juego {
+            background: #3b016b;
+            padding: 20px;
+            width: 150px;
+            border-radius: 10px;
+        }
+
+        .juego h2 {
+            color: #ff0000;
+        }
+
+        .noticias {
+            background: #120020;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        footer {
+            padding: 20px;
+            color: #aaa;
+        }
+
+        /* Ventana de información */
+        .ventana {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #18002b;
+            border: 2px solid #c000ff;
+            box-shadow: 0 0 30px #c000ff;
+            padding: 30px;
+            width: 380px;
+            max-width: 80%;
+            color: white;
+            z-index: 1000;
+            border-radius: 15px;
+        }
+
+        .ventana h2 {
+            color: #d000ff;
+        }
+
+        .ventana h3 {
+            color: #c000ff;
+        }
+
+        .ventana p {
+            text-align: left;
+        }
+
+        .cerrar {
+            margin-top: 15px;
+        }
     </style>
 </head>
+
 <body>
+
     <header>
         <h1>🎮 GAME ZONE</h1>
+
         <nav>
             <a href="#inicio">INICIO</a>
             <a href="#juegos">JUEGOS</a>
@@ -26,20 +123,142 @@
             <a href="#contacto">CONTACTO</a>
         </nav>
     </header>
+
     <div class="inicio" id="inicio">
         <h2>BIENVENIDO A GAME ZONE</h2>
         <p>Tu sitio favorito sobre videojuegos.</p>
-        <button>EXPLORAR</button>
+        <button onclick="document.getElementById('juegos').scrollIntoView()">
+            EXPLORAR
+        </button>
     </div>
+
     <h2 id="juegos">🎮 JUEGOS DESTACADOS</h2>
+
     <div class="juegos">
-        <div class="juego"><h2>God of War</h2><p>⭐ 4.8</p></div>
-        <div class="juego"><h2>Elden Ring</h2><p>⭐ 4.7</p></div>
-        <div class="juego"><h2>Spider-Man</h2><p>⭐ 4.8</p></div>
+
+        <!-- GOD OF WAR -->
+        <div class="juego">
+            <button onclick="mostrarJuego('godofwar')">
+                <h2>God of War</h2>
+                <p>⭐ 4.8</p>
+            </button>
+        </div>
+
+        <!-- ELDEN RING -->
+        <div class="juego">
+            <button onclick="mostrarJuego('eldenring')">
+                <h2>Elden Ring</h2>
+                <p>⭐ 4.7</p>
+            </button>
+        </div>
+
+        <!-- SPIDER-MAN -->
+        <div class="juego">
+            <button onclick="mostrarJuego('spiderman')">
+                <h2>Spider-Man</h2>
+                <p>⭐ 4.8</p>
+            </button>
+        </div>
+
     </div>
+
     <div class="noticias" id="noticias">
-        <h2>📰 ÚLTIMAS NOTICIAS</h2><p>Nuevos juegos y novedades gamer.</p>
+        <h2>📰 ÚLTIMAS NOTICIAS</h2>
+        <p>Nuevos juegos y novedades gamer.</p>
     </div>
-    <footer id="contacto">© 2026 Game Zone 🎮</footer>
+
+    <footer id="contacto">
+        © 2026 Game Zone 🎮
+    </footer>
+
+
+    <!-- VENTANA QUE APARECE AL PRESIONAR UN JUEGO -->
+
+    <div id="ventana" class="ventana"></div>
+
+
+    <script>
+
+        function mostrarJuego(juego) {
+
+            let informacion = "";
+
+            if (juego === "godofwar") {
+
+                informacion = `
+                    <h2>🎮 God of War</h2>
+                    <p>Una aventura épica protagonizada por Kratos y Atreus.</p>
+
+                    <h3>💻 Requisitos mínimos</h3>
+
+                    <p><b>Sistema operativo:</b> Windows 10 64-bit</p>
+                    <p><b>Procesador:</b> Intel Core i5-2500K / AMD Ryzen 3 1200</p>
+                    <p><b>Memoria RAM:</b> 8 GB</p>
+                    <p><b>Tarjeta gráfica:</b> NVIDIA GTX 960 / AMD R9 290X</p>
+                    <p><b>DirectX:</b> 11</p>
+                    <p><b>Almacenamiento:</b> 70 GB</p>
+
+                    <button class="cerrar" onclick="cerrarVentana()">
+                        CERRAR
+                    </button>
+                `;
+
+            }
+
+            else if (juego === "eldenring") {
+
+                informacion = `
+                    <h2>⚔️ Elden Ring</h2>
+                    <p>Explora un enorme mundo de fantasía lleno de enemigos y misterios.</p>
+
+                    <h3>💻 Requisitos mínimos</h3>
+
+                    <p><b>Sistema operativo:</b> Windows 10</p>
+                    <p><b>Procesador:</b> Intel Core i5-8400 / AMD Ryzen 3 3300X</p>
+                    <p><b>Memoria RAM:</b> 12 GB</p>
+                    <p><b>Tarjeta gráfica:</b> NVIDIA GTX 1060 3 GB / AMD RX 580 4 GB</p>
+                    <p><b>DirectX:</b> 12</p>
+                    <p><b>Almacenamiento:</b> 60 GB</p>
+
+                    <button class="cerrar" onclick="cerrarVentana()">
+                        CERRAR
+                    </button>
+                `;
+
+            }
+
+            else if (juego === "spiderman") {
+
+                informacion = `
+                    <h2>🕷️ Marvel's Spider-Man Remastered</h2>
+                    <p>Conviértete en Spider-Man y recorre Nueva York.</p>
+
+                    <h3>💻 Requisitos mínimos</h3>
+
+                    <p><b>Sistema operativo:</b> Windows 10 64-bit</p>
+                    <p><b>Procesador:</b> Intel Core i3-4160 / AMD equivalente</p>
+                    <p><b>Memoria RAM:</b> 8 GB</p>
+                    <p><b>Tarjeta gráfica:</b> NVIDIA GTX 950 / AMD Radeon RX 470</p>
+                    <p><b>DirectX:</b> 12</p>
+                    <p><b>Almacenamiento:</b> 75 GB</p>
+
+                    <button class="cerrar" onclick="cerrarVentana()">
+                        CERRAR
+                    </button>
+                `;
+
+            }
+
+            document.getElementById("ventana").innerHTML = informacion;
+            document.getElementById("ventana").style.display = "block";
+        }
+
+
+        function cerrarVentana() {
+            document.getElementById("ventana").style.display = "none";
+        }
+
+    </script>
+
 </body>
 </html>
